@@ -5,6 +5,8 @@ cd terraform
 git add .
 git commit -m "Update - $(Get-Date -Format 'yyyy-MM-dd HH:mm')"        #(PowerShell)
 git commit -m "Update - $(date '+%Y-%m-%d %H:%M')"                     #(Linux)
+git push
+
 git push origin main --force
 git push -u origin main
 
@@ -21,3 +23,5 @@ git filter-repo --force --path project_afx.zip --path .terraform/providers/regis
 
 git remote add origin https://github.com/ngduythang02/note.git
 
+git credential-cache exit
+git credential reject
