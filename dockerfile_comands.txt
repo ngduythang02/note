@@ -1,0 +1,39 @@
+FROM node:20    
+                    kéo note:20 về và sử dụng
+workDIR /app    
+                    chỉ định thư mục làm việc (chưa có nó sẽ tạo thư mục đó)
+COPY <từ A> <đến B>    
+                    copy source code vào container
+                    ví dụ COPY . . : copy source từ vị trí hiện tại đến vị trí hiện tại trong container
+RUN     
+                    chạy các câu lệnh trên linux
+ENV      
+                    khai báo các biến
+EXPOSE      
+                    định nghĩa xem ứng trong trong container chạy port nào (port nó chạy trong con tainer. ví dụ 8888:80 -> expose là 80)
+CMD     
+                    xác định lệnh và giá trị mặc định
+ENTRYPOINT      
+                    giữ nguyên 1 lệnh cố định, và cho phép lệnh được chỉ định khi chạy container thêm vào cuối của nó
+USER 
+                    chỉ định user sẽ sử dụng
+
+
+
+
+NOTE:
+
+
+chạy ứng dụng bằng user khác
+chọn base image là alpine
+dùng multipe stage
+
+
+docker build -t shoeshop:v1                khởi chạy container
+docker images
+docker rmi
+docker stop <ID container>
+docker rm -f <ID docker>
+docker run --name <name> -dit -p 8888:80 <name container>
+docker logs <ID container>
+docker build -f Dockerfile.dev <vị trí của dockerfile>                chỉ định tên dockerfile không phải dạng chuẩn (dạng chuẩn là Dockerfile)

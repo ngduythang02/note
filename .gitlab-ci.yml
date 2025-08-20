@@ -1,0 +1,33 @@
+variables:
+    projectuser: shoeshop
+    projectpath: /datas/shoeshop
+
+stages:
+    - build
+    - test
+    - deploy
+
+build:
+    stage: build
+    variables:
+        GIT_STRATEGY: clone
+    script:
+        - mvn install -DskipTests=true
+    tags:
+        - runner(192.168.14.103)
+    # only:
+    #     - tags
+deploy:
+    stage: deploy
+    variables:
+        GIT_STRATEGY: none
+    script:
+        - sudo cp target/shoe-ShoppingCart-0.0.1-SNAPSHOT.jar $projectpath
+        - sudo chown -R $projectuser:$projectuser $projectpath
+        - sudo kill -9 $(ps -ef | grep shoe-ShoppingCart-0.0.1-SNAPSHOT.jar | grep -v grep | awk '{print $2}')
+        # - sudo pkill -f shoe-ShoppingCart-0.0.1-SNAPSHOT.jar || true
+        - sudo su $projectuser -c "cd $projectpath; nohup java -jar $projectpath/shoe-ShoppingCart-0.0.1-SNAPSHOT.jar > nohup.out 2>&1 &"
+    tags:
+        - runner(192.168.14.103)
+    # only:
+    #     - tags

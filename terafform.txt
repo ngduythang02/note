@@ -1,0 +1,69 @@
+git config --global user.name "thangnd"
+git config --global user.email "thangnd@example.com"
+
+cd terraform
+git add .
+git commit -m "Update Terraform config - $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+git push origin main --force
+git push -u origin main
+
+git pull origin main
+
+
+git add --renormalize .
+git push
+
+git filter-repo --force --path project_afx.zip --path .terraform/providers/registry.terraform.io/hashicorp/aws/6.6.0/windows_amd64/terraform-provider-aws_v6.6.0_x5.exe --invert-paths
+
+
+
+terraform init	Khởi tạo thư mục làm việc, tải provider (bắt buộc chạy đầu tiên).
+terraform validate	Kiểm tra cú pháp file .tf có hợp lệ không.
+terraform fmt	Định dạng lại file Terraform cho đúng chuẩn.
+terraform providers	Hiển thị các provider mà project đang dùng.
+terraform plan	Xem trước các thay đổi (tạo/sửa/xóa) mà Terraform sẽ thực hiện.
+terraform plan -out=tfplan	Xuất kế hoạch ra file (tfplan) để apply sau.
+terraform show	Xem nội dung file state hoặc file plan.
+terraform apply	Triển khai thay đổi hạ tầng thực tế (sẽ hỏi xác nhận).
+terraform apply tfplan	Áp dụng kế hoạch từ file tfplan không cần hỏi.
+terraform destroy	Xóa toàn bộ tài nguyên đã tạo.
+terraform destroy -target=aws_vpc.main	Chỉ xóa một resource cụ thể.
+terraform state list	Liệt kê tất cả resource đang quản lý trong state.
+terraform state show <resource>	Xem chi tiết thông tin của 1 resource.
+terraform state rm <resource>	Gỡ 1 resource ra khỏi state nhưng không xóa thực tế.
+terraform output	In ra các giá trị output đã định nghĩa.
+terraform output bastion_public_ip
+terraform graph	Vẽ sơ đồ dependency giữa các resource (dùng với Graphviz).
+terraform graph | Out-File -Encoding ascii graph.dot
+dot -Tpng graph.dot -o graph.png
+
+terraform workspace list	Danh sách các workspace (dùng cho môi trường dev/prod/staging).
+terraform workspace new dev	Tạo workspace mới.
+
+icacls .\test-key.pem /inheritance:r
+icacls .\test-key.pem /remove "NT AUTHORITY\Authenticated Users" "Users" "Everyone"
+
+
+icacls .\test-key.pem /grant:r "$($env:USERNAME):(F)"
+
+icacls .\test-key.pem
+
+
+ssh -i "test-key.pem" ec2-user@ec2-34-201-151-193.compute-1.amazonaws.com
+
+scp -i test-key.pem .\test-key.pem ec2-user@ec2-34-201-151-193.compute-1.amazonaws.com:/home/ec2-user/
+scp -i test-key.pem .\test2-key.pem ec2-user@ec2-34-201-151-193.compute-1.amazonaws.com:/home/ec2-user/
+
+Get-FileHash .\test-key.pem -Algorithm MD5
+Get-FileHash .\test2-key.pem -Algorithm MD5
+
+
+chmod 400 test-key.pem
+chmod 400 test2-key.pem
+
+
+ssh -i "test-key.pem" ec2-user@10.0.1.141
+
+
+echo "Hello from Frontend_2" | sudo tee /var/www/html/index.html
+sudo systemctl restart httpd

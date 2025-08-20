@@ -1,0 +1,16 @@
+git config --global user.name "thangnd"
+git config --global user.email "thangnd@example.com"
+
+cd terraform
+git add .
+git commit -m "Update Terraform config - $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
+git push origin main --force
+git push -u origin main
+
+git pull origin main
+
+
+git add --renormalize .
+git push
+
+git filter-repo --force --path project_afx.zip --path .terraform/providers/registry.terraform.io/hashicorp/aws/6.6.0/windows_amd64/terraform-provider-aws_v6.6.0_x5.exe --invert-paths
