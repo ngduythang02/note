@@ -13,4 +13,10 @@ git pull origin main
 git add --renormalize .
 git push
 
+
 git filter-repo --force --path project_afx.zip --path .terraform/providers/registry.terraform.io/hashicorp/aws/6.6.0/windows_amd64/terraform-provider-aws_v6.6.0_x5.exe --invert-paths
+
+
+
+git remote add origin https://github.com/ngduythang02/note.git
+
