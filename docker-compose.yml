@@ -1,0 +1,4 @@
+version: '3.8'
+services:
+  db1:
+    image: mariadb:10.6 
