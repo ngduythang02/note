@@ -27,6 +27,7 @@ server {
 EOF
 
 ln -sf /etc/nginx/sites-available/proxy_pass.conf /etc/nginx/sites-enabled/proxy_pass.conf
+rm -rf /etc/nginx/sites-enabled/default
 
 if nginx -t; then
     systemctl reload nginx
