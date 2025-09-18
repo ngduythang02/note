@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$(whoami)" != "root" ]; then
+    echo "You need to run this script with root privileges"
+    exit 1
+fi
+
 apt install openjdk-17-jdk openjdk-17-jre -y
 java --version
 wget -p -O - https://pkg.jenkins.io/debian/jenkins.io.key | apt-key add -
