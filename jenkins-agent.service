@@ -1,0 +1,18 @@
+#/etc/systemd/system/jenkins-agent.service
+# sudo systemctl daemon-reload
+# sudo systemctl start jenkins-agent.service
+# sudo systemctl status jenkins-agent.service
+[Unit]
+Description=jenkins Agent Service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/lib/jenkins
+ExecStart=/bin/bash -c 'java -jar agent.jar -url https://jenkins.devopsndt.fun/ -secret @secret-file -name "lab-server" -webSocket -workDir "/var/lib/jenkins"'
+User=jenkins
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
