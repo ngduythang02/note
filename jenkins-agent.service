@@ -2,6 +2,8 @@
 # sudo systemctl daemon-reload
 # sudo systemctl start jenkins-agent.service
 # sudo systemctl status jenkins-agent.service
+# sudo systemctl enable jenkins-agent.service
+# systemctl is-enabled jenkins-agent.service
 [Unit]
 Description=jenkins Agent Service
 After=network.target
