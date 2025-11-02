@@ -12,6 +12,7 @@ fi
 read -p "Enter DOMAIN (EX: gitlab.thangnd.cloud): " domain
 read -p "Enter IP (EX: 192.168.1.5): " ip
 read -p "Enter PORT (EX: 8080): " port
+name_server="${domain%%.*}"
 
 apt update -y && apt install nginx -y
 
@@ -38,7 +39,7 @@ server {
     client_max_body_size 100M;
 
     location / {
-        proxy_pass http://${ip}:${port};  # Jenkins server
+        proxy_pass http://${ip}:${port};  # ${name_server} server
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
