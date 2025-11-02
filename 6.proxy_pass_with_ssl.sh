@@ -1,13 +1,17 @@
 #!/bin/bash
 
-domain="jenkins.thangnd.cloud"
-ip="192.168.1.5"
-port="8080"
+# domain="jenkins.thangnd.cloud"
+# ip="192.168.1.5"
+# port="8080"
 
 if [ "$(whoami)" != "root" ]; then
     echo "You need to run this script with root privileges"
     exit 1
 fi
+
+read -p "Enter DOMAIN (EX: gitlab.thangnd.cloud): " domain
+read -p "Enter IP (EX: 192.168.1.5): " ip
+read -p "Enter PORT (EX: 8080): " port
 
 apt update -y && apt install nginx -y
 
