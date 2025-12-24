@@ -10,8 +10,8 @@ samba --version
 
 mkdir -p /srv/samba/public
 mkdir -p /srv/samba/private
-chmod -R 777 /srv/samba/public
-chown -R nobody:nogroup /srv/samba/public
+chmod -R 777 /srv
+chown -R nobody:nogroup /srv
 chmod -R 755 /srv/samba/private
 chown -R root:root /srv/samba/private
 
