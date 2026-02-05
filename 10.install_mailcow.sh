@@ -44,4 +44,8 @@ case "$answer" in
     exit 1
     ;;
 esac
-
+echo ""
+echo ""
+echo ""
+echo "Access https://mail.thangnd.cloud"
+echo "Login admin: (admin/moohoo)"
