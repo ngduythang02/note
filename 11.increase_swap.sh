@@ -5,15 +5,41 @@ if [ "$(whoami)" != "root" ]; then
     exit 1
 fi
 
-read -p "Enter the required additional SWAP capacity (Gb) (EX: 4): " swap
+##########################################################
+RAM=$(awk '/MemTotal/ {print int($2/1024)}' /proc/meminfo)
+DISK=$(df / | awk 'NR==2 {print int($4/1024)}')
 
-if ! [[ "$swap" =~ ^[0-9]+$ ]]; then
+# calculate (MB)
+recomment_A=$((RAM / 2))
+recomment_B=$((DISK / 3))
+
+if [ "$recomment_A" -gt "$recomment_B" ]; then
+    recomment_MB=$recomment_B
+else
+    recomment_MB=$recomment_A
+fi
+
+recomment=$(awk -v v="$recomment_MB" 'BEGIN {print int(v/1024)}')
+
+##########################################################
+
+read -p "Enter the required additional SWAP capacity (Gb) (Recomment: ${recomment}): " swap
+
+if ! echo "$swap" | grep -qE '^[0-9]+$'; then
     echo "Invalid input. Please enter a number."
     exit 1
 fi
 
 swap_old=$(swapon --show | awk 'NR==2 {print $3}')
 swap_old=${swap_old:-0G}
+
+read -p "Do you want SWAP to change from ${swap_old} to ${swap}Gb? (y/n): " confirm
+
+if [ "$confirm" != "y" ] && [ "$confirm" != "Y" ]; then
+    echo "Exit..."
+    exit 0
+fi
+
 swapoff -a
 rm -f /swap.img
 fallocate -l ${swap}G /swap.img
@@ -32,7 +58,7 @@ echo ""
 echo ""
 echo ""
 echo ""
-echo "✅ SWAP upgrade from ${swap_old} to ${swap_new} "
+echo "✅ SWAP to change from ${swap_old} to ${swap_new} "
 echo ""
 echo ""
 echo ""
