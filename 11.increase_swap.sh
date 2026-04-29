@@ -7,8 +7,13 @@ fi
 
 read -p "Enter the required additional SWAP capacity (Gb) (EX: 4): " swap
 
-swap_old="0G"
+if ! [[ "$swap" =~ ^[0-9]+$ ]]; then
+    echo "Invalid input. Please enter a number."
+    exit 1
+fi
+
 swap_old=$(swapon --show | awk 'NR==2 {print $3}')
+swap_old=${swap_old:-0G}
 swapoff -a
 rm -f /swap.img
 fallocate -l ${swap}G /swap.img
