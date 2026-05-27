@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  cloudflare-ddns:
+    image: oznu/cloudflare-ddns:latest
+    container_name: cloudflare-ddns
+    restart: always
+    environment:
+      - API_KEY= <TOKEN>
+      - ZONE=thangnd.fun
+      - SUBDOMAIN=cam
+      - PROXIED=false
