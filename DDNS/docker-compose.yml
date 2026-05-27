@@ -6,7 +6,7 @@ services:
     container_name: cloudflare-ddns
     restart: always
     environment:
-      - API_KEY= <TOKEN>
+      - API_KEY=<TOKEN>
       - ZONE=thangnd.fun
       - SUBDOMAIN=cam
       - PROXIED=false
