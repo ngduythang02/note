@@ -79,8 +79,7 @@ if [ -z "$ipstatic" ]; then
     exit 1
 else
     tee /etc/openvpn/ccd/${CLIENT} > /dev/null <<EOF
-    ifconfig-push ${ipstatic} 255.255.255.0
-
+ifconfig-push ${ipstatic} 255.255.255.0
 EOF
 fi
 
